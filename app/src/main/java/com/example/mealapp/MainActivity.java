@@ -12,7 +12,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView textView = findViewById(R.id.firsttextbox);
+        TextView textView3 = findViewById(R.id.firsttextbox);
+
 
     }
 }
