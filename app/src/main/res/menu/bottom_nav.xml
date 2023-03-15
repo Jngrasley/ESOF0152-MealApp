@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item   android:id="@+id/Meals"
-        android:title="Home"
-        android:icon="@drawable/calendar"
-        />
-
     <item   android:id="@+id/Recipes"
         android:title="Recipes"
         android:icon="@drawable/recipe_book"
         />
 
+    <item   android:id="@+id/Meals"
+        android:title="Meals"
+        android:icon="@drawable/calendar"
+        />
+
     <item   android:id="@+id/Cart"
-        android:title="Home"
+        android:title="Shopping Cart"
         android:icon="@drawable/shopping_cart"
         />
 </menu>

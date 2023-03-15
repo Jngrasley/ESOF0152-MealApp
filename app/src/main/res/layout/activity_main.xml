@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/orange_scheme_4"
     tools:context=".MainActivity">
 
     <TextView
@@ -26,21 +26,31 @@
         />
 
     <CalendarView
+        android:id="@+id/mealsCalendar"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/maincalendar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="98dp"
-        android:background="@color/cardview_light_background"
+
+
         />
-    
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
         app:menu="@menu/bottom_nav"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/orange_1_secondary"
+
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+
+        android:background="@color/orange_scheme_1"
+        app:itemTextColor="@drawable/bottom_nav_selector"
+        app:itemIconTint="@drawable/bottom_nav_selector"
         />
 
 </RelativeLayout>
