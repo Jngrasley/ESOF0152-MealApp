@@ -4,36 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".MainActivity">
+    tools:context=".RecipesActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/firsttextbox"
-        android:text="text"
+        android:text="2"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/maincalendar"
-
-        android:layout_below="@id/firsttextbox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100px"
-        android:text="Button"
-        />
-
-    <CalendarView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/maincalendar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="98dp"
-        android:background="@color/cardview_light_background"
-        />
-    
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
         app:menu="@menu/bottom_nav"
