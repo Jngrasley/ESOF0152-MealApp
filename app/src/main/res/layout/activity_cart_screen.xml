@@ -4,21 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShoppingCartActivity">
+    tools:context=".CartScreen">
 
     <TextView
+        android:id="@+id/firsttextbox3"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_below="@+id/firsttextbox"
+
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="33dp"
+        android:text="ingredients will go here. it's set up to scroll maybe(?)"
+        android:scrollbars = "vertical"/>
+
+
+    <TextView
+        android:id="@+id/firsttextbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3"
-        />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavMenu"
-        app:menu="@menu/bottom_nav"
-        android:layout_width="match_parent"
+        android:text="Shopping Cart" />
+
+    <TextView
+        android:id="@+id/firsttextbox2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/orange_1_secondary"
-        />
+        android:layout_below="@+id/firsttextbox"
+
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="33dp"
+        android:text="description of what page does + how to add to it" />
+
 
 </RelativeLayout>
