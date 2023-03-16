@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">The Meal Zone</string>
+    <string name="welcome_message_title">Welcome!</string>
+    <string name="welcome_message_body">What\'s on your plate today?</string>
 </resources>

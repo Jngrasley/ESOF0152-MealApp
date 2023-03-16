@@ -7,50 +7,86 @@
     android:background="@color/orange_scheme_4"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/firsttextbox"
-        android:text="text"
-        />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                        >
+                        <TextView
+                            android:id="@+id/title_text_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="15dp"
+                            android:text="@string/welcome_message_title"
+                            android:textStyle="bold"
+                            android:textSize="30dp"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/black"
+                            />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/maincalendar"
+                        <TextView
+                            android:id="@+id/body_text_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/title_text_box"
+                            android:text="@string/welcome_message_body"
+                            android:textSize="20dp"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/black"
+                            />
 
-        android:layout_below="@id/firsttextbox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100px"
-        android:text="Button"
-        />
+                        <CalendarView
+                            android:id="@+id/mealsCalendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/body_text_box"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="30dp"
+                            android:background="@color/cardview_light_background"
+                            />
+                </LinearLayout>
+        </ScrollView>
 
-    <CalendarView
-        android:id="@+id/mealsCalendar"
+        <LinearLayout
+            android:id="@+id/calendar_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_above="@id/bottomNavMenu"
+            android:gravity="center"
+            >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clear Day's\nMeals"
+                    android:layout_marginRight="15dp"
+                    />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/maincalendar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="98dp"
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save Day's\nMeals"
+                    android:layout_marginLeft="15dp"
+                    />
+        </LinearLayout>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavMenu"
+            app:menu="@menu/bottom_nav"
 
-        />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavMenu"
-        app:menu="@menu/bottom_nav"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-
-        android:paddingTop="10px"
-        android:paddingBottom="10px"
-
-        android:background="@color/orange_scheme_1"
-        app:itemTextColor="@drawable/bottom_nav_selector"
-        app:itemIconTint="@drawable/bottom_nav_selector"
-        />
-
+            android:background="@color/orange_scheme_1"
+            app:itemTextColor="@drawable/bottom_nav_selector"
+            app:itemIconTint="@drawable/bottom_nav_selector"
+            />
 </RelativeLayout>
