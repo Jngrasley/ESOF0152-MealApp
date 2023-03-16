@@ -2,4 +2,9 @@
     <string name="app_name">The Meal Zone</string>
     <string name="welcome_message_title">Welcome!</string>
     <string name="welcome_message_body">What\'s on your plate today?</string>
+
+    <string name="meals_title">Meals</string>
+    <string name="breakfast_daily_meal">Breakfast:</string>
+    <string name="lunch_daily_meal">Lunch:</string>
+    <string name="dinner_daily_meal">Dinner:</string>
 </resources>

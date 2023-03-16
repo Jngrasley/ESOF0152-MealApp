@@ -20,12 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
 
-        android:paddingTop="10px"
-        android:paddingBottom="10px"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
 
         android:background="@color/orange_scheme_1"
         app:itemTextColor="@drawable/bottom_nav_selector"
         app:itemIconTint="@drawable/bottom_nav_selector"
         />
-
 </RelativeLayout>

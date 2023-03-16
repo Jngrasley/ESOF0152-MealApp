@@ -11,33 +11,32 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:layout_below="@+id/firsttextbox"
-
         android:layout_marginStart="33dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="33dp"
         android:layout_marginBottom="33dp"
         android:text="ingredients will go here. it's set up to scroll maybe(?)"
-        android:scrollbars = "vertical"/>
-
+        android:scrollbars = "vertical"
+        />
 
     <TextView
         android:id="@+id/firsttextbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:text="Shopping Cart" />
+        android:text="Shopping Cart"
+        />
 
     <TextView
         android:id="@+id/firsttextbox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/firsttextbox"
-
         android:layout_marginStart="33dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="33dp"
         android:layout_marginBottom="33dp"
-        android:text="description of what page does + how to add to it" />
+        android:text="description of what page does + how to add to it"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
@@ -47,12 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
 
-        android:paddingTop="10px"
-        android:paddingBottom="10px"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
 
         android:background="@color/orange_scheme_1"
         app:itemTextColor="@drawable/bottom_nav_selector"
         app:itemIconTint="@drawable/bottom_nav_selector"
         />
-
 </RelativeLayout>
