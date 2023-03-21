@@ -23,7 +23,7 @@
                             android:paddingTop="15dp"
                             android:text="@string/welcome_message_title"
                             android:textStyle="bold"
-                            android:textSize="30dp"
+                            android:textSize="30sp"
                             android:gravity="center_horizontal"
                             android:textColor="@color/black"
                             />
@@ -74,7 +74,7 @@
                             android:id="@+id/daily_breakfast_spinner"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
-                            android:layout_toRightOf="@id/daily_breakfast"
+                            android:layout_toEndOf="@id/daily_breakfast"
                             android:layout_alignBottom="@id/daily_breakfast"
                             />
 
@@ -93,7 +93,7 @@
                             android:id="@+id/daily_lunch_spinner"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
-                            android:layout_toRightOf="@id/daily_lunch"
+                            android:layout_toEndOf="@id/daily_lunch"
                             android:layout_alignBottom="@id/daily_lunch"
                             />
 
@@ -112,11 +112,15 @@
                             android:id="@+id/daily_dinner_spinner"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
-                            android:layout_toRightOf="@id/daily_dinner"
+                            android:layout_toEndOf="@id/daily_dinner"
                             android:layout_alignBottom="@id/daily_dinner"
                             />
+
+
+
                 </RelativeLayout>
         </ScrollView>
+
         <LinearLayout
             android:id="@+id/calendar_buttons"
             android:layout_width="match_parent"

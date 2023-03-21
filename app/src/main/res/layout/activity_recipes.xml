@@ -4,27 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/orange_scheme_4"
     tools:context=".RecipesActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/title_text_box"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2"
+        android:paddingTop="15dp"
+        android:text="@string/recipe_message_title"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:id="@+id/body_text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text_box"
+        android:text="@string/recipe_message_body"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        />
+
+    <EditText
+        android:id="@+id/recipe_search_field"
+
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/body_text_box"
+        android:layout_centerInParent="true" />
+
+    <ImageButton
+        android:id="@+id/search_image_button"
+        android:src="@drawable/search_icon"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_toEndOf="@id/recipe_search_field"
+        android:layout_alignTop="@id/recipe_search_field"
+        />
+
+    <TextView
+        android:id="@+id/recipe_list_title"
+        android:text="@string/recipe_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/recipe_search_field"
+        />
+    
+    <ListView
+        android:id="@+id/list_of_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_list_title"
+        android:layout_above="@id/bottomNavMenu"
+
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
-        app:menu="@menu/bottom_nav"
-
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/orange_scheme_1"
 
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
 
-        android:background="@color/orange_scheme_1"
-        app:itemTextColor="@drawable/bottom_nav_selector"
         app:itemIconTint="@drawable/bottom_nav_selector"
-        />
+        app:itemTextColor="@drawable/bottom_nav_selector"
+        app:menu="@menu/bottom_nav" />
 </RelativeLayout>

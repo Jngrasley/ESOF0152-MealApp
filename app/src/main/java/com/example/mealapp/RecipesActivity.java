@@ -6,21 +6,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 public class RecipesActivity extends AppCompatActivity {
 
     //declared UI objects
     BottomNavigationView bottomNavigationView;
+    ListView listOfRecipes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
         //define UI objects
+            //nav menu
         bottomNavigationView = findViewById(R.id.bottomNavMenu);
         bottomNavigationView.setSelectedItemId(R.id.Recipes);
+            //listview
+        listOfRecipes = findViewById(R.id.list_of_recipes);
+        String recipesList[] = {"1","2","3","4"};
+        ArrayAdapter<String> recipesAdapter = new ArrayAdapter<String>(this, R.layout.activity_recipe_list_view, R.id.recipeView, recipesList);
+        listOfRecipes.setAdapter(recipesAdapter);
+
 
         //control the activity view based on navigation listener
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
