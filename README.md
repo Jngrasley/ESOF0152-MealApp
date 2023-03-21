@@ -1,3 +1,7 @@
 # ESOF0152-MealApp
 
-This is the repository for our class project for ESOF-0152.
+Topic: A meal planning app designed to offer recipes, show ingredients, and make grocery shopping easier.
+
+Tasks such as meal planning, grocery shopping and preparing food can be quite difficult, especially when you are not sure what you want to make or how to do so. Our goal is to create an application that makes these things easy for the general household. The app will give people a simple way to access new recipes based on their interests, show them the needed ingredients, and help them plan their grocery shopping trip to help preserve what remains of their free time.
+
+Throughout the COVID-19 pandemic, a major issue arose in many households where, with so many people staying at home and the now increased boredom of daily life, it suddenly  became difficult to create new meals and experience unique food that differs from the usual. As a result, many people began experimenting with cooking and baking with all the extra time at home that became available to them, which cultivated a newfound appreciation for food. Currently, many companies and workplaces have returned to in-person work; this has created a new issue as the motivation for many households to cook remains, but there is now significantly less free time to do so compared to during the pandemic. Our goal with this project is to develop an app so that people and their families can keep this newfound cooking spirit alive by making it quicker and easier to find meals, recipes, and ideas that will add a bit of spice in their daily lives.
