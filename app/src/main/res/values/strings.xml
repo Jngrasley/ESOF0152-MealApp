@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">The Meal Zone</string>
 
-    <string name="botton_nav_recipe">Recipes</string>
+    <string name="bottom_nav_recipe">Recipes</string>
     <string name="bottom_nav_meals">Meals</string>
     <string name="bottom_nav_cart">Shopping Cart</string>
 
@@ -23,4 +23,15 @@
     <string name="breakfast_daily_meal">Breakfast:</string>
     <string name="lunch_daily_meal">Lunch:</string>
     <string name="dinner_daily_meal">Dinner:</string>
+
+    <string name="recipe_entry_title">Whats cookin\'?</string>
+    <string name="recipe_entry_header">Enter the details of your recipe below…</string>
+    <string name="recipe_entry_name">Recipe Name:</string>
+    <string name="recipe_entry_name_hint">Mac and Cheese</string>
+    <string name="recipe_entry_desc">Description:</string>
+    <string name="recipe_entry_desc_hint">add the cheese, milk, and stir…</string>
+    <string name="recipe_entry_ingredients">Ingredients:</string>
+    <string name="recipe_entry_ingredients_hint">butter, milk, noodles</string>
+    <string name="recipe_save_button">Save Recipe</string>
+    <string name="recipe_clear_button">Back To Recipes</string>
 </resources>

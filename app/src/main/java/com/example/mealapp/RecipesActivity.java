@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class RecipesActivity extends AppCompatActivity {
     //declared UI objects
     BottomNavigationView bottomNavigationView;
     ListView listOfRecipes;
+    Button addRecipeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,19 @@ public class RecipesActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.Recipes);
             //listview
         listOfRecipes = findViewById(R.id.list_of_recipes);
+        addRecipeButton = findViewById(R.id.new_recipe_button);
+
         String recipesList[] = {"1","2","3","4"};
         ArrayAdapter<String> recipesAdapter = new ArrayAdapter<String>(this, R.layout.activity_recipe_list_view, R.id.recipeView, recipesList);
         listOfRecipes.setAdapter(recipesAdapter);
+
+        addRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RecipeEntryActivity.class));
+                overridePendingTransition(0,0);
+            }
+        });
 
 
         //control the activity view based on navigation listener

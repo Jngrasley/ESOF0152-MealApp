@@ -54,4 +54,12 @@ public class RecipeModel {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    //takes a list of ingredients and puts it to a csv for the database to read properly.
+    public String ingredientsToCSV() {
+        return String.join(
+                ",",
+                ingredients
+        );
+    }
 }

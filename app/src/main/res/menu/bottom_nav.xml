@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item   android:id="@+id/Recipes"
-        android:title="@string/botton_nav_recipe"
+        android:title="@string/bottom_nav_recipe"
         android:icon="@drawable/recipe_book"
         />
 

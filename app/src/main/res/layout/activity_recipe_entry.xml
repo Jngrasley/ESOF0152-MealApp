@@ -4,6 +4,141 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/orange_scheme_4"
     tools:context=".RecipeEntryActivity">
 
+    <TextView
+        android:id="@+id/recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:text="@string/recipe_entry_title"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:id="@+id/recipe_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_title"
+        android:text="@string/recipe_entry_header"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        />
+
+    <LinearLayout
+        android:id="@+id/list_of_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_header"
+        android:layout_above="@id/recipe_entry_buttons"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/recipe_name_view"
+            android:text="@string/recipe_entry_name"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <EditText
+            android:id="@+id/recipe_name_edit"
+            android:inputType="text"
+            android:hint="@string/recipe_entry_name_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            />
+        <TextView
+            android:id="@+id/recipe_desc_view"
+            android:text="@string/recipe_entry_desc"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <EditText
+            android:id="@+id/recipe_desc_edit"
+            android:inputType="text"
+            android:hint="@string/recipe_entry_desc_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            />
+        <TextView
+            android:id="@+id/recipe_recipe_entry_ingredients_view"
+            android:text="@string/recipe_entry_ingredients"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <EditText
+            android:id="@+id/recipe_ingredients_edit"
+            android:inputType="text"
+            android:hint="@string/recipe_entry_ingredients_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/recipe_entry_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/bottomNavMenu"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/recipe_entry_back"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe_clear_button"
+            android:layout_marginEnd="15dp"
+            />
+        <Button
+            android:id="@+id/recipe_entry_save"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe_add_button"
+            android:layout_marginStart="15dp"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavMenu"
+        app:menu="@menu/bottom_nav"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+
+        android:background="@color/orange_scheme_1"
+        app:itemTextColor="@drawable/bottom_nav_selector"
+        app:itemIconTint="@drawable/bottom_nav_selector"
+        />
 </RelativeLayout>
