@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import android.widget.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     //declared UI objects
     BottomNavigationView bottomNavigationView;
-
+    TextView dailyLunchView;
+    CalendarView mealsCalendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
         //define UI objects
         bottomNavigationView = findViewById(R.id.bottomNavMenu);
         bottomNavigationView.setSelectedItemId(R.id.Meals);
+        dailyLunchView = findViewById(R.id.daily_lunch);
+        mealsCalendar = findViewById(R.id.mealsCalendar);
+
+
+        //control the date change on calendarview
+        mealsCalendar.setOnDateChangeListener((calendarView, i, i1, i2) -> {
+            
+        });
 
         //control the activity view based on navigation listener
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
