@@ -1,5 +1,7 @@
 package com.example.mealapp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,11 +57,18 @@ public class RecipeModel {
                 '}';
     }
 
-    //takes a list of ingredients and puts it to a csv for the database to read properly.
-    public String ingredientsToCSV() {
+    //takes a list of ingredients and puts it to a csv for the DB to read properly.
+    public static String ingredientsToCSV(List<String> ingredientsList) {
         return String.join(
                 ",",
-                ingredients
+                ingredientsList
         );
     }
+
+    //take a csv string from the DB and put to a list
+    public static List<String> CSVToIngredients(String CSV) {
+        return Arrays.asList(CSV.replaceAll("\\s", "").split(",", -1));
+    }
+
+
 }

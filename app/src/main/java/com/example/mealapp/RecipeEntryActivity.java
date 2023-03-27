@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,6 +19,10 @@ public class RecipeEntryActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Button backButton;
     Button saveButton;
+    EditText recipeNameEdit;
+    EditText recipeDescEdit;
+    EditText recipeIngredientsEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +32,9 @@ public class RecipeEntryActivity extends AppCompatActivity {
             //buttons
         backButton = findViewById(R.id.recipe_entry_back);
         saveButton = findViewById(R.id.recipe_entry_save);
+        recipeNameEdit = findViewById(R.id.recipe_name_edit);
+        recipeDescEdit = findViewById(R.id.recipe_desc_edit);
+        recipeIngredientsEdit = findViewById(R.id.recipe_ingredients_edit);
             //nav menu
         bottomNavigationView = findViewById(R.id.bottomNavMenu);
         bottomNavigationView.setSelectedItemId(R.id.Recipes);
@@ -33,10 +42,43 @@ public class RecipeEntryActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //String value = new RecipeModel().CSVToIngredients(recipeIngredientsEdit.getText().toString()).get(1);
+                //Toast.makeText(RecipeEntryActivity.this, value, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), RecipesActivity.class));
                 overridePendingTransition(0,0);
             }
         });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //define a new recipe obj
+                RecipeModel recipe;
+
+                if (recipeNameEdit.getText().toString().trim().length() > 0 && recipeDescEdit.getText().toString().trim().length() > 0 ) {
+                    //try to insert it into the db, or throw if not possible
+
+                    DBHelper dbHelper = new DBHelper(RecipeEntryActivity.this);
+
+                    try{
+                        //declare fields to the instance
+                        recipe = new RecipeModel(recipeNameEdit.getText().toString(), recipeDescEdit.getText().toString(), RecipeModel.CSVToIngredients(recipeIngredientsEdit.getText().toString()));
+                        //output data as we go
+                        Toast.makeText(RecipeEntryActivity.this, recipe.toString(), Toast.LENGTH_SHORT).show();
+
+                        //send the data to the database now
+
+                    }
+                    catch (Exception e) {
+                        Toast.makeText(RecipeEntryActivity.this, "Error RE1: There was an issue saving your recipe, please try again!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                    Toast.makeText(RecipeEntryActivity.this, "Make sure the name and description are filled out.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

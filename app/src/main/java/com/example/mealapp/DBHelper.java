@@ -14,8 +14,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_RECIPE_DESC = "RECIPE_DESC";
     public static final String COL_RECIPE_INGRED = "RECIPE_INGRED";
 
-    public DBHelper(@Nullable Context context, @Nullable String name) {
-        super(context, name, null, 1);
+    public DBHelper(@Nullable Context context) {
+        super(context, null, null, 1);
     }
 
     //this is called on the first initialization of the DB. Needed for recipe and date storage.
@@ -45,14 +45,11 @@ public class DBHelper extends SQLiteOpenHelper {
         //push variables to new recipe
         cv.put(COL_RECIPE_NAME, newRecipe.getName());
         cv.put(COL_RECIPE_DESC, newRecipe.getDescription());
-        cv.put(COL_RECIPE_INGRED, newRecipe.ingredientsToCSV());
+        cv.put(COL_RECIPE_INGRED, RecipeModel.ingredientsToCSV(newRecipe.getIngredients()));
 
         long insert = db.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
 
         //check for successful insert value
-        if (insert == -1)
-            return false;
-        else
-            return true;
+        return insert != -1;
     }
 }
