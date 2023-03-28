@@ -8,13 +8,15 @@ import java.util.List;
  * Class that defines what the recipes consist of for data, and their appropriate methods.
  */
 public class RecipeModel {
+    private int ID;
     private String name;
     private String description;
     private List<String> ingredients;
 
     //class constructors
         //full constructor
-    public RecipeModel(String name, String description, List<String> ingredients) {
+    public RecipeModel(int ID, String name, String description, List<String> ingredients) {
+        this.ID = ID;
         this.name = name;
         this.description = description;
         this.ingredients = ingredients;
@@ -23,6 +25,15 @@ public class RecipeModel {
     public RecipeModel() {}
 
     //getters and setters
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public String getName() {
         return name;
     }
@@ -52,8 +63,10 @@ public class RecipeModel {
     @Override
     public String toString() {
         return "RecipeModel{" +
-                "name='" + name + '\'' +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", ingredients=" + ingredients +
                 '}';
     }
 
@@ -69,6 +82,4 @@ public class RecipeModel {
     public static List<String> CSVToIngredients(String CSV) {
         return Arrays.asList(CSV.replaceAll("\\s", "").split(",", -1));
     }
-
-
 }

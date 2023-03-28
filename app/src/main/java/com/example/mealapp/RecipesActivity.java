@@ -16,12 +16,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
+
+
 public class RecipesActivity extends AppCompatActivity {
 
     //declared UI objects
     BottomNavigationView bottomNavigationView;
     ListView listOfRecipes;
     Button addRecipeButton;
+    Button viewRecipeButton;
+    ArrayAdapter recipesAdapter;
+    DBHelper dbHelper;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +42,10 @@ public class RecipesActivity extends AppCompatActivity {
             //listview
         listOfRecipes = findViewById(R.id.list_of_recipes);
         addRecipeButton = findViewById(R.id.new_recipe_button);
-
-        String recipesList[] = {"1","2","3","4"};
-        ArrayAdapter<String> recipesAdapter = new ArrayAdapter<String>(this, R.layout.activity_recipe_list_view, R.id.recipeView, recipesList);
-        listOfRecipes.setAdapter(recipesAdapter);
+        viewRecipeButton = findViewById(R.id.view_recipe_button);
+            //functionality of listview
+        dbHelper = new DBHelper(RecipesActivity.this);
+        updateRecipeListView(dbHelper);
 
         addRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +55,13 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
+        viewRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper dbHelper1 = new DBHelper(RecipesActivity.this);
+                updateRecipeListView(dbHelper1);
+            }
+        });
 
         //control the activity view based on navigation listener
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,5 +85,10 @@ public class RecipesActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void updateRecipeListView(DBHelper db) {
+        recipesAdapter = new ArrayAdapter<RecipeModel>(RecipesActivity.this, android.R.layout.simple_list_item_1, db.getAllRecipes());
+        listOfRecipes.setAdapter(recipesAdapter);
     }
 }

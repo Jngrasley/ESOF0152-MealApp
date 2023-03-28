@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,8 +43,6 @@ public class RecipeEntryActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String value = new RecipeModel().CSVToIngredients(recipeIngredientsEdit.getText().toString()).get(1);
-                //Toast.makeText(RecipeEntryActivity.this, value, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), RecipesActivity.class));
                 overridePendingTransition(0,0);
             }
@@ -55,26 +54,32 @@ public class RecipeEntryActivity extends AppCompatActivity {
                 //define a new recipe obj
                 RecipeModel recipe;
 
-                if (recipeNameEdit.getText().toString().trim().length() > 0 && recipeDescEdit.getText().toString().trim().length() > 0 ) {
+                DBHelper dbHelper = null;
+                if (recipeNameEdit.getText().toString().trim().length() > 0 && recipeDescEdit.getText().toString().trim().length() > 0) {
                     //try to insert it into the db, or throw if not possible
 
-                    DBHelper dbHelper = new DBHelper(RecipeEntryActivity.this);
+                    dbHelper = new DBHelper(RecipeEntryActivity.this);
 
-                    try{
+                    try {
                         //declare fields to the instance
-                        recipe = new RecipeModel(recipeNameEdit.getText().toString(), recipeDescEdit.getText().toString(), RecipeModel.CSVToIngredients(recipeIngredientsEdit.getText().toString()));
-                        //output data as we go
-                        Toast.makeText(RecipeEntryActivity.this, recipe.toString(), Toast.LENGTH_SHORT).show();
-
+                        recipe = new RecipeModel(-1, recipeNameEdit.getText().toString(), recipeDescEdit.getText().toString(), RecipeModel.CSVToIngredients(recipeIngredientsEdit.getText().toString()));
                         //send the data to the database now
 
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(RecipeEntryActivity.this, "Error RE1: There was an issue saving your recipe, please try again!", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                }
-                else
+                } else {
                     Toast.makeText(RecipeEntryActivity.this, "Make sure the name and description are filled out.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                boolean checkInsert = dbHelper.addRecipeToList(recipe);
+
+                Toast.makeText(RecipeEntryActivity.this, checkInsert ? "Added Successfully":"Error RE2: There was an issue saving your recipe, please try again!", Toast.LENGTH_SHORT).show();
+
+                RecipesActivity activity = new RecipesActivity();
+                activity.updateRecipeListView(dbHelper);
             }
         });
 

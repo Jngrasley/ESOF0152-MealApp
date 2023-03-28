@@ -68,18 +68,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/recipe_list_title"
         android:layout_above="@id/bottomNavMenu"
-
         />
-
+    <Button
+        android:id="@+id/view_recipe_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/list_of_recipes"
+        android:layout_above="@id/new_recipe_button"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Refresh" />
     <Button
         android:id="@+id/new_recipe_button"
-        android:text="@string/recipe_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/list_of_recipes"
         android:layout_alignBottom="@id/list_of_recipes"
-        android:layout_margin="15dp"
-        />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/recipe_add_button" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
