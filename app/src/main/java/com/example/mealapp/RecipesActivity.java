@@ -9,13 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.List;
-
 
 
 public class RecipesActivity extends AppCompatActivity {
@@ -23,12 +20,16 @@ public class RecipesActivity extends AppCompatActivity {
     //declared UI objects
     BottomNavigationView bottomNavigationView;
     ListView listOfRecipes;
+    ImageButton searchImageButton;
     Button addRecipeButton;
     Button viewRecipeButton;
     ArrayAdapter recipesAdapter;
     DBHelper dbHelper;
 
-
+    public void updateRecipeListView(DBHelper db) {
+        recipesAdapter = new ArrayAdapter<String>(RecipesActivity.this, android.R.layout.simple_list_item_1, db.getAllRecipesListView());
+        listOfRecipes.setAdapter(recipesAdapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,22 @@ public class RecipesActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.Recipes);
             //listview
         listOfRecipes = findViewById(R.id.list_of_recipes);
+        searchImageButton = findViewById(R.id.search_image_button);
         addRecipeButton = findViewById(R.id.new_recipe_button);
         viewRecipeButton = findViewById(R.id.view_recipe_button);
             //functionality of listview
         dbHelper = new DBHelper(RecipesActivity.this);
         updateRecipeListView(dbHelper);
 
+
+        searchImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper dbHelper = new DBHelper(RecipesActivity.this);
+                dbHelper.onTruncate("RECIPE_TABLE");
+                dbHelper.close();
+            }
+        });
         addRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,8 +69,9 @@ public class RecipesActivity extends AppCompatActivity {
         viewRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DBHelper dbHelper1 = new DBHelper(RecipesActivity.this);
-                updateRecipeListView(dbHelper1);
+                DBHelper dbHelper = new DBHelper(RecipesActivity.this);
+                updateRecipeListView(dbHelper);
+                dbHelper.close();
             }
         });
 
@@ -85,10 +97,5 @@ public class RecipesActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void updateRecipeListView(DBHelper db) {
-        recipesAdapter = new ArrayAdapter<RecipeModel>(RecipesActivity.this, android.R.layout.simple_list_item_1, db.getAllRecipes());
-        listOfRecipes.setAdapter(recipesAdapter);
     }
 }

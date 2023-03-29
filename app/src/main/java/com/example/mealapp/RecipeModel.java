@@ -25,7 +25,6 @@ public class RecipeModel {
     public RecipeModel() {}
 
     //getters and setters
-
     public int getID() {
         return ID;
     }
@@ -68,6 +67,10 @@ public class RecipeModel {
                 ", description='" + description + '\'' +
                 ", ingredients=" + ingredients +
                 '}';
+    }
+
+    public String toListViewString() {
+        return (ID + ": " + name + ",\n" + description);
     }
 
     //takes a list of ingredients and puts it to a csv for the DB to read properly.

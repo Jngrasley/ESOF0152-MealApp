@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange_scheme_4"
-    tools:context=".RecipesActivity">
+    >
 
     <TextView
         android:id="@+id/title_text_box"
@@ -78,7 +78,6 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
         android:text="Refresh" />
     <Button
         android:id="@+id/new_recipe_button"
@@ -87,7 +86,6 @@
         android:layout_alignEnd="@+id/list_of_recipes"
         android:layout_alignBottom="@id/list_of_recipes"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:text="@string/recipe_add_button" />

@@ -17,15 +17,21 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_RECIPE_NAME = "RECIPE_NAME";
     public static final String COL_RECIPE_DESC = "RECIPE_DESC";
     public static final String COL_RECIPE_INGRED = "RECIPE_INGRED";
+    public static final String CALENDAR_TABLE = "CALENDAR_TABLE";
+    public static final String COL_CALENDAR_DATE = "DATE";
+    public static final String COL_CALENDAR_BREAKFAST = "BREAKFAST";
+    public static final String COL_CALENDAR_LUNCH = "LUNCH";
+    public static final String COL_CALENDAR_DINNER = "DINNER";
+
 
     public DBHelper(@Nullable Context context) {
-        super(context, null, null, 1);
+        super(context, "recipe_db", null, 1);
     }
 
     //this is called on the first initialization of the DB. Needed for recipe and date storage.
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //generate the first recipe table
+        //generate the recipe table
         String createTable = "CREATE TABLE " + RECIPE_TABLE +
                 "(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -34,15 +40,32 @@ public class DBHelper extends SQLiteOpenHelper {
                 COL_RECIPE_INGRED + " TEXT" +
                 ")";
         sqLiteDatabase.execSQL(createTable);
+
+        createTable = "CREATE TABLE " + CALENDAR_TABLE +
+                "(" +
+                COL_CALENDAR_DATE + "DATE PRIMARY KEY, " +
+                COL_CALENDAR_BREAKFAST + " TEXT UNIQUE, " +
+                COL_CALENDAR_LUNCH + " TEXT, " +
+                COL_CALENDAR_DINNER + " TEXT" +
+                ")";
+        sqLiteDatabase.execSQL(createTable);
+
     }
 
     //this is likely not needed, but helps with future compatibility.
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
-    public List<RecipeModel> getAllRecipes() {
+    public void onTruncate(String table_name) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("delete from "+ table_name +";");
+        sqLiteDatabase.execSQL("delete from sqlite_sequence where name='" + table_name + "';");
+        sqLiteDatabase.close();
+    }
+
+    public List<String> getAllRecipesListView() {
         //define the output list
-        List<RecipeModel> output = new ArrayList<>();
+        List<String> output = new ArrayList<>();
 
         //declare the query
         String outputQuery = "SELECT * FROM " + RECIPE_TABLE;
@@ -61,7 +84,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String recipeIngredients = cs.getString(3);
 
                 RecipeModel newRecipe = new RecipeModel(recipeID, recipeName, recipeDesc, RecipeModel.CSVToIngredients(recipeIngredients));
-                output.add(newRecipe);
+                output.add(newRecipe.toListViewString());
             } while(cs.moveToNext());
         }
 
@@ -86,5 +109,37 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //check for successful insert value
         return insert != -1;
+    }
+
+    public List<String> getMealsForDay(Long date) {
+        //define the output list
+        List<String> output = new ArrayList<>();
+
+        //declare the query
+        String outputQuery = "SELECT * FROM " + RECIPE_TABLE;
+        //execute the query with a db object
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs = db.rawQuery(outputQuery, null);
+
+        if (cs.moveToFirst()) {
+            // data is valid, iter through the rest
+            //use a do while to ensure you capture the first element!!
+            do {
+                //capture the data elements one at a time
+                //Long d = cs.getLong(0);
+                String breakfast = cs.getString(1);
+                String lunch = cs.getString(2);
+                String dinner = cs.getString(3);
+
+                output.add(breakfast);
+                output.add(lunch);
+                output.add(dinner);
+            } while(cs.moveToNext());
+        }
+
+        //make sure to close out the resources and return the data
+        cs.close();
+        db.close();
+        return output;
     }
 }

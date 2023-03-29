@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     TextView dailyLunchView;
     CalendarView mealsCalendar;
+    Long currentDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +26,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavMenu);
         bottomNavigationView.setSelectedItemId(R.id.Meals);
         dailyLunchView = findViewById(R.id.daily_lunch);
-        mealsCalendar = findViewById(R.id.mealsCalendar);
-
+        mealsCalendar = (CalendarView) findViewById(R.id.mealsCalendar);
+        currentDate = mealsCalendar.getDate();
 
         //control the date change on calendarview
-        mealsCalendar.setOnDateChangeListener((calendarView, i, i1, i2) -> {
-            
+        mealsCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+
+            }
         });
 
         //control the activity view based on navigation listener

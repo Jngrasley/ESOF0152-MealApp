@@ -54,7 +54,7 @@ public class RecipeEntryActivity extends AppCompatActivity {
                 //define a new recipe obj
                 RecipeModel recipe;
 
-                DBHelper dbHelper = null;
+                DBHelper dbHelper;
                 if (recipeNameEdit.getText().toString().trim().length() > 0 && recipeDescEdit.getText().toString().trim().length() > 0) {
                     //try to insert it into the db, or throw if not possible
 
@@ -78,8 +78,8 @@ public class RecipeEntryActivity extends AppCompatActivity {
 
                 Toast.makeText(RecipeEntryActivity.this, checkInsert ? "Added Successfully":"Error RE2: There was an issue saving your recipe, please try again!", Toast.LENGTH_SHORT).show();
 
-                RecipesActivity activity = new RecipesActivity();
-                activity.updateRecipeListView(dbHelper);
+                dbHelper.close();
+                backButton.callOnClick();
             }
         });
 
