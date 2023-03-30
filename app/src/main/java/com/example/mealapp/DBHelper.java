@@ -63,6 +63,33 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
+    public List<String> getAllRecipeNames()  {
+        //define the output list
+        List<String> output = new ArrayList<>();
+
+        //declare the query
+        String outputQuery = "SELECT " + COL_RECIPE_NAME + " FROM " + RECIPE_TABLE;
+        //execute the query with a db object
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs = db.rawQuery(outputQuery, null);
+
+        if (cs.moveToFirst()) {
+            // data is valid, iter through the rest
+            //use a do while to ensure you capture the first element!!
+            do {
+                //capture the data elements one at a time
+                String recipeName = cs.getString(0);
+
+                output.add(recipeName);
+            } while(cs.moveToNext());
+        }
+
+        //make sure to close out the resources and return the data
+        cs.close();
+        db.close();
+        return output;
+    }
+
     public List<String> getAllRecipesListView() {
         //define the output list
         List<String> output = new ArrayList<>();
@@ -111,12 +138,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public List<String> getMealsForDay(Long date) {
+    public List<String> getMealsForDay(String date) {
         //define the output list
         List<String> output = new ArrayList<>();
 
         //declare the query
-        String outputQuery = "SELECT * FROM " + RECIPE_TABLE;
+        String outputQuery = "SELECT * FROM " + RECIPE_TABLE + "WHERE " + COL_CALENDAR_DATE +" = " + date + ";";
         //execute the query with a db object
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery(outputQuery, null);
@@ -141,5 +168,9 @@ public class DBHelper extends SQLiteOpenHelper {
         cs.close();
         db.close();
         return output;
+    }
+
+    public void saveMealForDay(String date) {
+
     }
 }

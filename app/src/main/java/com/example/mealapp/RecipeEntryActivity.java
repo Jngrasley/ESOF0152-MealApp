@@ -83,8 +83,6 @@ public class RecipeEntryActivity extends AppCompatActivity {
             }
         });
 
-
-
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
