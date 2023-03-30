@@ -45,19 +45,32 @@
                             android:layout_below="@id/body_text_box"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="10dp"
-                            android:background="@color/cardview_light_background"
-                            />
+                            android:background="@color/cardview_light_background" />
 
                         <TextView
                             android:id="@+id/daily_meals_title"
-                            android:layout_width="wrap_content"
+                            android:layout_width="140dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/meals_title"
+                            android:text="Todays Meals"
                             android:layout_below="@id/mealsCalendar"
                             android:layout_marginTop="7dp"
+                            android:textAlignment="center"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:layout_centerHorizontal="true"
+                            android:layout_alignStart="@id/current_breakfast"
+                            android:layout_marginBottom="5dp"
+                            />
+                        <TextView
+                            android:id="@+id/new_meals_title"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="Change Meals"
+                            android:layout_below="@id/mealsCalendar"
+                            android:layout_marginTop="7dp"
+                            android:textAlignment="center"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:layout_alignStart="@id/daily_breakfast_spinner"
                             android:layout_marginBottom="5dp"
                             />
 
@@ -68,14 +81,21 @@
                             android:text="@string/breakfast_daily_meal"
                             android:layout_below="@id/daily_meals_title"
                             android:textSize="15sp"
-                            android:layout_toStartOf="@id/daily_meals_title"
+                            android:layout_alignStart="@id/mealsCalendar"
                             android:layout_marginBottom="10dp"
                             />
+
+                        <TextView
+                            android:id="@+id/current_breakfast"
+                            android:layout_width="140dp"
+                            android:layout_height="20dp"
+                            android:layout_alignBottom="@id/daily_breakfast_spinner"
+                            android:layout_toStartOf="@id/daily_breakfast_spinner" />
                         <Spinner
                             android:id="@+id/daily_breakfast_spinner"
-                            android:layout_width="200dp"
+                            android:layout_width="140dp"
                             android:layout_height="20dp"
-                            android:layout_toEndOf="@id/daily_breakfast"
+                            android:layout_alignEnd="@id/mealsCalendar"
                             android:layout_alignBottom="@id/daily_breakfast"
                             />
 
@@ -86,14 +106,21 @@
                             android:text="@string/lunch_daily_meal"
                             android:layout_below="@id/daily_breakfast"
                             android:textSize="15sp"
-                            android:layout_toStartOf="@id/daily_meals_title"
+                            android:layout_alignLeft="@id/mealsCalendar"
                             android:layout_marginBottom="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/current_lunch"
+                            android:layout_width="140dp"
+                            android:layout_height="20dp"
+                            android:layout_toStartOf="@id/daily_lunch_spinner"
+                            android:layout_alignBottom="@id/daily_lunch_spinner"
                             />
                         <Spinner
                             android:id="@+id/daily_lunch_spinner"
-                            android:layout_width="200dp"
+                            android:layout_width="140dp"
                             android:layout_height="20dp"
-                            android:layout_toEndOf="@id/daily_lunch"
+                            android:layout_alignEnd="@id/mealsCalendar"
                             android:layout_alignBottom="@id/daily_lunch"
                             />
 
@@ -103,15 +130,22 @@
                             android:layout_height="wrap_content"
                             android:text="@string/dinner_daily_meal"
                             android:layout_below="@id/daily_lunch"
-                            android:layout_toStartOf="@id/daily_meals_title"
+                            android:layout_alignLeft="@id/mealsCalendar"
                             android:textSize="15sp"
                             android:layout_marginBottom="10dp"
                             />
+                        <TextView
+                            android:id="@+id/current_dinner"
+                            android:layout_width="140dp"
+                            android:layout_height="20dp"
+                            android:layout_toStartOf="@id/daily_dinner_spinner"
+                            android:layout_alignBottom="@id/daily_dinner_spinner"
+                            />
                         <Spinner
                             android:id="@+id/daily_dinner_spinner"
-                            android:layout_width="200dp"
+                            android:layout_width="140dp"
                             android:layout_height="20dp"
-                            android:layout_toEndOf="@id/daily_dinner"
+                            android:layout_alignEnd="@id/mealsCalendar"
                             android:layout_alignBottom="@id/daily_dinner"
                             />
                 </RelativeLayout>

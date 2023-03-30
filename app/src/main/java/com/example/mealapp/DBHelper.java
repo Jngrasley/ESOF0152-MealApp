@@ -43,13 +43,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         createTable = "CREATE TABLE " + CALENDAR_TABLE +
                 "(" +
-                COL_CALENDAR_DATE + "DATE PRIMARY KEY, " +
-                COL_CALENDAR_BREAKFAST + " TEXT UNIQUE, " +
+                COL_CALENDAR_DATE + " TEXT PRIMARY KEY, " +
+                COL_CALENDAR_BREAKFAST + " TEXT, " +
                 COL_CALENDAR_LUNCH + " TEXT, " +
                 COL_CALENDAR_DINNER + " TEXT" +
                 ")";
         sqLiteDatabase.execSQL(createTable);
-
     }
 
     //this is likely not needed, but helps with future compatibility.
@@ -138,12 +137,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public List<String> getMealsForDay(String date) {
-        //define the output list
-        List<String> output = new ArrayList<>();
+    public String[] getMealsForDay(String date) {
+        String[] output = new String[3];
 
         //declare the query
-        String outputQuery = "SELECT * FROM " + RECIPE_TABLE + "WHERE " + COL_CALENDAR_DATE +" = " + date + ";";
+        String outputQuery = "SELECT * FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = \"" + date + "\";";
         //execute the query with a db object
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery(outputQuery, null);
@@ -158,10 +156,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 String lunch = cs.getString(2);
                 String dinner = cs.getString(3);
 
-                output.add(breakfast);
-                output.add(lunch);
-                output.add(dinner);
-            } while(cs.moveToNext());
+                output[0] = breakfast;
+                output[1] = lunch;
+                output[2] = dinner;
+            } while(false);
         }
 
         //make sure to close out the resources and return the data
@@ -170,7 +168,46 @@ public class DBHelper extends SQLiteOpenHelper {
         return output;
     }
 
-    public void saveMealForDay(String date) {
+    public boolean saveMealForDay(String date, String breakfast, String lunch, String dinner) {
+        boolean output;
+        //declare starters
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        //push variables to new recipe
+        cv.put(COL_CALENDAR_DATE, date);
+        cv.put(COL_CALENDAR_BREAKFAST, breakfast);
+        cv.put(COL_CALENDAR_LUNCH, lunch);
+        cv.put(COL_CALENDAR_DINNER, dinner);
+
+        //check if already in db
+        try {
+            if (db.insert(CALENDAR_TABLE, COL_CALENDAR_DATE, cv) == -1) {
+                db.update(CALENDAR_TABLE, cv, (COL_CALENDAR_DATE + " = " + date), null);
+            }
+            output = true;
+        } catch (Exception e) {
+            output = false;
+        }
+
+        cv.clear();
+        db.close();
+        //check for successful insert value
+        return output;
+    }
+
+    public boolean deleteMealForDay(String date) {
+        boolean result;
+        //setup db
+        SQLiteDatabase db = this.getWritableDatabase();
+        String deleteQuery = ("DELETE FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = " + date);
+        //execute
+        Cursor cs = db.rawQuery(deleteQuery, null);
+
+        result = cs.moveToFirst();
+
+        cs.close();
+        db.close();
+        return result;
     }
 }
