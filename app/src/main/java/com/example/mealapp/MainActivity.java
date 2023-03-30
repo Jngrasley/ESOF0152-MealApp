@@ -40,18 +40,18 @@ public class MainActivity extends AppCompatActivity {
 
         String[] list = dbHelper.getMealsForDay(currentDateString);
 
-        if (list[]) {
+        currentBreakfast.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        currentLunch.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        currentDinner.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        if (list[0] == "" || list[0] == "-") {
             currentBreakfast.setText(list[0]);
             currentLunch.setText(list[1]);
             currentDinner.setText(list[2]);
         } else {
             currentBreakfast.setText("-");
-            currentBreakfast.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             currentLunch.setText("-");
-            currentLunch.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             currentDinner.setText("-");
-            currentDinner.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
         }
 
         dbHelper.close();
@@ -96,7 +96,16 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //get data first
+                String breakfast = breakfastSpinner.getSelectedItem().toString();
+                String lunch = lunchSpinner.getSelectedItem().toString();
+                String dinner = dinnerSpinner.getSelectedItem().toString();
 
+                DBHelper dbHelper = new DBHelper(MainActivity.this);
+                boolean checkInsert = dbHelper.saveMealForDay(currentDateString, breakfast, lunch, dinner);
+                Toast.makeText(MainActivity.this, checkInsert ? "Added Successfully":"Error MA1: There was an issue saving your meals, please try again!", Toast.LENGTH_SHORT).show();
+
+                updateSpinnerView();
             }
         });
 
@@ -106,17 +115,16 @@ public class MainActivity extends AppCompatActivity {
                 DBHelper dbHelper = new DBHelper(MainActivity.this);
 
                 //get data fields
-                if (currentBreakfast.getText().toString().equals("-") ||
-                        currentLunch.getText().toString().equals("-") ||
+                if (currentBreakfast.getText().toString().equals("-") &&
+                        currentLunch.getText().toString().equals("-") &&
                         currentDinner.getText().toString().equals("-")) {
                     //this means that the date is empty
-                    Toast.makeText(MainActivity.this, "Confirmed empty", Toast.LENGTH_SHORT).show();
-
+                    //do nothing
+                    Toast.makeText(MainActivity.this, "Looks like there are no meals set on that day!", Toast.LENGTH_SHORT).show();
                 }
 
-
-                boolean checkInsert = true;//= dbHelper.addRecipeToList(recipe);
-                Toast.makeText(MainActivity.this, checkInsert ? "Added Successfully":"Error RE2: There was an issue saving your recipe, please try again!", Toast.LENGTH_SHORT).show();
+                boolean checkInsert = dbHelper.deleteMealForDay(currentDateString);
+                Toast.makeText(MainActivity.this, checkInsert ? "Cleared Successfully":"Error MA2: There was an issue removing your meals, please try again!", Toast.LENGTH_SHORT).show();
 
                 dbHelper.close();
             }

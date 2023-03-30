@@ -86,6 +86,8 @@ public class DBHelper extends SQLiteOpenHelper {
         //make sure to close out the resources and return the data
         cs.close();
         db.close();
+        output.add("-");
+        output.sort(null);
         return output;
     }
 

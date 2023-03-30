@@ -49,7 +49,6 @@ public class RecipesActivity extends AppCompatActivity {
         dbHelper = new DBHelper(RecipesActivity.this);
         updateRecipeListView(dbHelper);
 
-
         searchImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
