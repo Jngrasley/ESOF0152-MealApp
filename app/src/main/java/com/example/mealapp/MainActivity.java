@@ -38,25 +38,24 @@ public class MainActivity extends AppCompatActivity {
         lunchSpinner.setAdapter(spinnerAdapter);
         dinnerSpinner.setAdapter(spinnerAdapter);
 
-        String[] list = dbHelper.getMealsForDay(currentDateString);
+        List<String> list = dbHelper.getMealsForDay(currentDateString);
 
         currentBreakfast.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         currentLunch.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         currentDinner.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
-        if (list[0] == "" || list[0] == "-") {
-            currentBreakfast.setText(list[0]);
-            currentLunch.setText(list[1]);
-            currentDinner.setText(list[2]);
-        } else {
+        if (list.isEmpty()) {
             currentBreakfast.setText("-");
             currentLunch.setText("-");
             currentDinner.setText("-");
+        } else {
+            currentBreakfast.setText(list.get(0));
+            currentLunch.setText(list.get(1));
+            currentDinner.setText(list.get(2));
         }
 
         dbHelper.close();
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 currentDateString = dateToString(year, month+1, day);
-                Toast.makeText(MainActivity.this, currentDateString, Toast.LENGTH_SHORT).show();
-
                 updateSpinnerView();
             }
         });
@@ -102,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 String dinner = dinnerSpinner.getSelectedItem().toString();
 
                 DBHelper dbHelper = new DBHelper(MainActivity.this);
-                boolean checkInsert = dbHelper.saveMealForDay(currentDateString, breakfast, lunch, dinner);
-                Toast.makeText(MainActivity.this, checkInsert ? "Added Successfully":"Error MA1: There was an issue saving your meals, please try again!", Toast.LENGTH_SHORT).show();
-
+                long checkInsert = dbHelper.saveMealForDay(currentDateString, breakfast, lunch, dinner);
+                Toast.makeText(MainActivity.this, checkInsert >= 0 ? "Added Successfully":"Error MA1: There was an issue saving your meals, please try again!", Toast.LENGTH_SHORT).show();
+                dbHelper.close();
                 updateSpinnerView();
             }
         });
@@ -121,12 +118,15 @@ public class MainActivity extends AppCompatActivity {
                     //this means that the date is empty
                     //do nothing
                     Toast.makeText(MainActivity.this, "Looks like there are no meals set on that day!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                boolean checkInsert = dbHelper.deleteMealForDay(currentDateString);
-                Toast.makeText(MainActivity.this, checkInsert ? "Cleared Successfully":"Error MA2: There was an issue removing your meals, please try again!", Toast.LENGTH_SHORT).show();
+                boolean checkDelete = dbHelper.deleteMealForDay(currentDateString);
+                Toast.makeText(MainActivity.this, checkDelete ? "Cleared Successfully":"Error MA2: There was an issue removing your meals, please try again!", Toast.LENGTH_SHORT).show();
 
                 dbHelper.close();
+
+                updateSpinnerView();
             }
         });
 

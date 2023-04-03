@@ -3,8 +3,10 @@ package com.example.mealapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -139,11 +141,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public String[] getMealsForDay(String date) {
-        String[] output = new String[3];
+    public boolean deleteRecipe() {
+        return false;
+    }
+
+    public List<String> getMealsForDay(String date) {
+        List<String> output = new ArrayList<String>();
 
         //declare the query
-        String outputQuery = "SELECT * FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = \"" + date + "\";";
+        String outputQuery = ("SELECT * FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = '" + date + "';");
         //execute the query with a db object
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery(outputQuery, null);
@@ -151,17 +157,15 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cs.moveToFirst()) {
             // data is valid, iter through the rest
             //use a do while to ensure you capture the first element!!
-            do {
-                //capture the data elements one at a time
-                //Long d = cs.getLong(0);
-                String breakfast = cs.getString(1);
-                String lunch = cs.getString(2);
-                String dinner = cs.getString(3);
+            //capture the data elements one at a time
+            //Long d = cs.getLong(0);
+            String breakfast = cs.getString(1);
+            String lunch = cs.getString(2);
+            String dinner = cs.getString(3);
 
-                output[0] = breakfast;
-                output[1] = lunch;
-                output[2] = dinner;
-            } while(false);
+            output.add(0, breakfast);
+            output.add(1, lunch);
+            output.add(2, dinner);
         }
 
         //make sure to close out the resources and return the data
@@ -170,27 +174,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return output;
     }
 
-    public boolean saveMealForDay(String date, String breakfast, String lunch, String dinner) {
-        boolean output;
+    public long saveMealForDay(String date, String breakfast, String lunch, String dinner) {
+        long output;
         //declare starters
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         //push variables to new recipe
         cv.put(COL_CALENDAR_DATE, date);
-        cv.put(COL_CALENDAR_BREAKFAST, breakfast);
-        cv.put(COL_CALENDAR_LUNCH, lunch);
-        cv.put(COL_CALENDAR_DINNER, dinner);
+        if (!(breakfast.equals("-")))
+            cv.put(COL_CALENDAR_BREAKFAST, breakfast);
+        if (!(lunch.equals("-")))
+            cv.put(COL_CALENDAR_LUNCH, lunch);
+        if (!(dinner.equals("-")))
+            cv.put(COL_CALENDAR_DINNER, dinner);
 
-        //check if already in db
-        try {
-            if (db.insert(CALENDAR_TABLE, COL_CALENDAR_DATE, cv) == -1) {
-                db.update(CALENDAR_TABLE, cv, (COL_CALENDAR_DATE + " = " + date), null);
-            }
-            output = true;
-        } catch (Exception e) {
-            output = false;
-        }
+        //
+        if (checkExists(date))
+            output = db.update(CALENDAR_TABLE, cv, (COL_CALENDAR_DATE + " = '" + date +"'"), null);
+        else
+            output = db.insert(CALENDAR_TABLE, COL_CALENDAR_DATE, cv);
 
         cv.clear();
         db.close();
@@ -198,18 +201,33 @@ public class DBHelper extends SQLiteOpenHelper {
         return output;
     }
 
+    public boolean checkExists(String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = ("SELECT * FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = '" + date + "';");
+
+        //execute the query with a db object
+        Cursor cs = db.rawQuery(query, null);
+
+        if (cs.moveToFirst())
+            return true;
+        else
+            return false;
+    }
     public boolean deleteMealForDay(String date) {
-        boolean result;
+        //boolean result;
         //setup db
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteQuery = ("DELETE FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = " + date);
+        //String deleteQuery = ("DELETE FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = " + date);
         //execute
-        Cursor cs = db.rawQuery(deleteQuery, null);
 
-        result = cs.moveToFirst();
+        //Cursor cs = db.rawQuery(deleteQuery, null);
+        int result = db.delete(CALENDAR_TABLE, (COL_CALENDAR_DATE + " = '" + date + "';"), null);
 
-        cs.close();
+        //result = cs.moveToFirst();
+
+        //cs.close();
         db.close();
-        return result;
+        //return result;
+        return result != -1;
     }
 }
