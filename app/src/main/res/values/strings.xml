@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">The Meal Zone</string>
 
+    <string name="refresh">Refresh</string>
+
     <string name="bottom_nav_recipe">Recipes</string>
     <string name="bottom_nav_meals">Meals</string>
     <string name="bottom_nav_cart">Shopping Cart</string>
@@ -12,7 +14,7 @@
     <string name="recipe_message_body">Lets find what you\'re looking for!</string>
     <string name="recipe_list_title">Here is a list of all your recipes:</string>
     <string name="recipe_search_bar">Enter the recipe name that you would like to search…</string>
-    <string name="recipe_search_button">Search for the name in your recipe book.</string>
+    <string name="recipe_refresh_button">Refresh your cook book.</string>
     <string name="recipe_search_hint">e.g. \'cookies\'</string>
     <string name="recipe_add_button">Add Recipe</string>
 

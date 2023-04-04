@@ -5,32 +5,39 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 
 public class RecipesActivity extends AppCompatActivity {
 
     //declared UI objects
     BottomNavigationView bottomNavigationView;
     ListView listOfRecipes;
-    ImageButton searchImageButton;
+    EditText searchField;
     Button addRecipeButton;
-    Button viewRecipeButton;
-    ArrayAdapter recipesAdapter;
-    DBHelper dbHelper;
+    Button refreshRecipeButton;
+    //ArrayAdapter recipesAdapter;
+    RecipeListAdapter recipesAdapter;
+    RecipeListAdapter searchAdapter;
 
-    public void updateRecipeListView(DBHelper db) {
-        recipesAdapter = new ArrayAdapter<String>(RecipesActivity.this, android.R.layout.simple_list_item_1, db.getAllRecipesListView());
+    public void updateRecipeListView() {
+        DBHelper db = new DBHelper(RecipesActivity.this);
+        //recipesAdapter = new ArrayAdapter<String>(RecipesActivity.this, android.R.layout.simple_list_item_1, db.getAllRecipesListView());
+        recipesAdapter = new RecipeListAdapter(RecipesActivity.this, db.getAllRecipesListView());
         listOfRecipes.setAdapter(recipesAdapter);
+        db.close();
     }
 
     @Override
@@ -44,21 +51,12 @@ public class RecipesActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.Recipes);
             //listview
         listOfRecipes = findViewById(R.id.list_of_recipes);
-        searchImageButton = findViewById(R.id.search_image_button);
+        searchField = findViewById(R.id.recipe_search_field);
         addRecipeButton = findViewById(R.id.new_recipe_button);
-        viewRecipeButton = findViewById(R.id.view_recipe_button);
+        refreshRecipeButton = findViewById(R.id.refresh_recipe_button);
             //functionality of listview
-        dbHelper = new DBHelper(RecipesActivity.this);
-        updateRecipeListView(dbHelper);
+        updateRecipeListView();
 
-        searchImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DBHelper dbHelper = new DBHelper(RecipesActivity.this);
-                dbHelper.onTruncate("RECIPE_TABLE");
-                dbHelper.close();
-            }
-        });
         addRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,23 +65,55 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        viewRecipeButton.setOnClickListener(new View.OnClickListener() {
+        refreshRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DBHelper dbHelper = new DBHelper(RecipesActivity.this);
-                updateRecipeListView(dbHelper);
-                dbHelper.close();
+                updateRecipeListView();
             }
+        });
+
+        searchField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchItem = searchField.getText().toString();
+
+                if (searchItem.isEmpty() || searchItem.equals(null)) {
+                    //don't do anything, just update to old adapter
+                    refreshRecipeButton.callOnClick();
+                } else {
+                    //if words in box, update the list
+                    DBHelper dbHelper = new DBHelper(RecipesActivity.this);
+                    searchAdapter = new RecipeListAdapter(RecipesActivity.this, dbHelper.searchAllRecipesListView(searchItem));
+                    listOfRecipes.setAdapter(searchAdapter);
+                    dbHelper.close();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
         });
 
         listOfRecipes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                RecipeModel recipe = (RecipeModel) listOfRecipes.getItemAtPosition(i);
-                Toast.makeText(RecipesActivity.this, i + ", " + recipe.getName(), Toast.LENGTH_SHORT).show();
-                return false;
+                //access the pressed object
+                RecipeModel recipe = (RecipeModel)adapterView.getItemAtPosition(i);
+
+                //set up delete query
+                DBHelper dbHelper = new DBHelper(RecipesActivity.this);
+                boolean checkDelete = dbHelper.deleteRecipe(recipe);
+                dbHelper.close();
+
+                Toast.makeText(RecipesActivity.this, checkDelete ? "Deleted Successfully" : "Error RA1: There was an issue deleting your recipe, please try again!", Toast.LENGTH_SHORT).show();
+
+                updateRecipeListView();
+                return checkDelete;
             }
         });
+
         //control the activity view based on navigation listener
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
