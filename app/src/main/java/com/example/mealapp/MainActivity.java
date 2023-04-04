@@ -11,6 +11,7 @@ import android.widget.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,19 +32,21 @@ public class MainActivity extends AppCompatActivity {
     long currentDate;
     String currentDateString;
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/M/d");
+
+
     public void updateSpinnerView() {
         DBHelper dbHelper = new DBHelper(MainActivity.this);
+
         spinnerAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, dbHelper.getAllRecipeNames());
         breakfastSpinner.setAdapter(spinnerAdapter);
         lunchSpinner.setAdapter(spinnerAdapter);
         dinnerSpinner.setAdapter(spinnerAdapter);
 
         List<String> list = dbHelper.getMealsForDay(currentDateString);
-
         currentBreakfast.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         currentLunch.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         currentDinner.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
         if (list.isEmpty()) {
             currentBreakfast.setText("-");
             currentLunch.setText("-");
@@ -76,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
         breakfastSpinner = findViewById(R.id.daily_breakfast_spinner);
         lunchSpinner = findViewById(R.id.daily_lunch_spinner);
         dinnerSpinner = findViewById(R.id.daily_dinner_spinner);
-        currentDate = mealsCalendar.getDate();
-        currentDateString = dateToString(currentDate);
-
-        updateSpinnerView();
 
         //control the date change on calendarView
         mealsCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -89,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
                 updateSpinnerView();
             }
         });
+
+        //Date today = Calendar.getInstance().getTime();
+        currentDateString = dateFormat.format(mealsCalendar.getDate());
+        //mealsCalendar.setDate(today.getTime());
+        updateSpinnerView();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,16 +158,5 @@ public class MainActivity extends AppCompatActivity {
 
     public String dateToString(int y, int m, int d) {
         return (y + "/" + m + "/" + d);
-    }
-
-    public String dateToString(long d) {
-        //convert the long data into a Date obj
-        Date date= new Date(d);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat SDF = new SimpleDateFormat("yyyy/MM/dd");
-        return SDF.format(date);
-    }
-
-    public String[] stringToDateArray(String date) {
-        return date.split("/");
     }
 }

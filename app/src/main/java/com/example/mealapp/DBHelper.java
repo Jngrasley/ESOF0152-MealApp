@@ -212,7 +212,7 @@ public class DBHelper extends SQLiteOpenHelper {
         List<String> output = new ArrayList<String>();
 
         //declare the query
-        String outputQuery = ("SELECT * FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = '" + date + "';");
+        String outputQuery = ("SELECT * FROM " + CALENDAR_TABLE + " WHERE " + COL_CALENDAR_DATE + " = \'" + date + "\';");
         //execute the query with a db object
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery(outputQuery, null);
