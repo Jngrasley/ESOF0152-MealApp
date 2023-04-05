@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,7 +18,7 @@ public class RecipeEntryActivity extends AppCompatActivity {
     //declared UI objects
     BottomNavigationView bottomNavigationView;
     Button backButton;
-    Button saveButton;
+    Button addButton;
     EditText recipeNameEdit;
     EditText recipeDescEdit;
     EditText recipeIngredientsEdit;
@@ -32,7 +31,7 @@ public class RecipeEntryActivity extends AppCompatActivity {
         //define UI components
             //buttons
         backButton = findViewById(R.id.recipe_entry_back);
-        saveButton = findViewById(R.id.recipe_entry_save);
+        addButton = findViewById(R.id.recipe_entry_save);
         recipeNameEdit = findViewById(R.id.recipe_name_edit);
         recipeDescEdit = findViewById(R.id.recipe_desc_edit);
         recipeIngredientsEdit = findViewById(R.id.recipe_ingredients_edit);
@@ -48,7 +47,7 @@ public class RecipeEntryActivity extends AppCompatActivity {
             }
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //define a new recipe obj

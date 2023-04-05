@@ -18,8 +18,17 @@
     <string name="recipe_search_hint">e.g. \'cookies\'</string>
     <string name="recipe_add_button">Add Recipe</string>
 
-    <string name="cart_message_title">Shopping Cart</string>
-    <string name="cart_message_body">Let\'s get those ingredients!</string>
+    <string name="cart_message_title">Fill the cart!</string>
+    <string name="cart_message_body">What do you need to get?</string>
+    <string name="cart_entry_add_button">Add to cart</string>
+    <string name="cart_add_button">Add items</string>
+    <string name="cart_back_button">Back to cart</string>
+    <string name="cart_clear_items">Empty</string>
+    <string name="cart_item_name">Item</string>
+    <string name="cart_item_amount">Amount</string>
+    <string name="cart_item_name_hint">Butter…</string>
+    <string name="cart_item_amount_hint">2 cups…</string>
+    <string name="cart_list_title">Here\'s your cart, check off the items once you get them!</string>
 
     <string name="meals_title">Meals</string>
     <string name="breakfast_daily_meal">Breakfast:</string>

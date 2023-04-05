@@ -35,10 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/body_text_box"
         android:layout_centerInParent="true"
-        android:inputType="text"
         android:hint="@string/recipe_search_hint"
-        android:minHeight="48dp"
-        />
+        android:inputType="text"
+        android:minHeight="48dp" />
     <TextView
         android:id="@+id/recipe_list_title"
         android:text="@string/recipe_list_title"

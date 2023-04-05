@@ -29,6 +29,58 @@
         android:textColor="@color/black"
         />
 
+    <EditText
+        android:id="@+id/item_search_field"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/body_text_box"
+        android:layout_centerInParent="true"
+        android:hint="@string/recipe_search_hint"
+        android:inputType="text"
+        android:minHeight="48dp" />
+    <TextView
+        android:id="@+id/cart_list_title"
+        android:text="@string/cart_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/item_search_field"
+        android:textColor="@color/black"
+        />
+
+    <ListView
+        android:id="@+id/list_shopping_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cart_list_title"
+        android:layout_above="@id/bottomNavMenu"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        />
+    <Button
+        android:id="@+id/cart_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/list_shopping_cart"
+        android:layout_above="@id/cart_add_button"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/cart_clear_items"
+        />
+    <Button
+        android:id="@+id/cart_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/list_shopping_cart"
+        android:layout_alignBottom="@id/list_shopping_cart"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/cart_add_button" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
         app:menu="@menu/bottom_nav"

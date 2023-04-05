@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange_scheme_4"
+    tools:context=".ShoppingCartEntryActivity">
+
+    <TextView
+        android:id="@+id/recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:text="@string/cart_message_title"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:id="@+id/recipe_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_title"
+        android:text="@string/cart_message_body"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        />
+
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_header"
+        android:layout_above="@id/recipe_entry_buttons"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/cart_item_view"
+            android:text="@string/cart_item_name"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <EditText
+            android:id="@+id/cart_item_edit"
+            android:inputType="text"
+            android:hint="@string/cart_item_name_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            />
+        <TextView
+            android:id="@+id/cart_amount_view"
+            android:text="@string/cart_item_amount"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <EditText
+            android:id="@+id/cart_amount_edit"
+            android:inputType="text"
+            android:hint="@string/cart_item_amount_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/recipe_entry_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/bottomNavMenu"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/cart_entry_back"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cart_back_button"
+            android:layout_marginEnd="15dp"
+            />
+        <Button
+            android:id="@+id/cart_entry_save"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cart_entry_add_button"
+            android:layout_marginStart="15dp"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavMenu"
+        app:menu="@menu/bottom_nav"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+
+        android:background="@color/orange_scheme_1"
+        app:itemTextColor="@drawable/bottom_nav_selector"
+        app:itemIconTint="@drawable/bottom_nav_selector"
+        />
+
+</RelativeLayout>

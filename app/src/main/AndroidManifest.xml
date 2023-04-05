@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MealApp"
         tools:targetApi="31">
         <activity
+            android:name=".ShoppingCartEntryActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecipeEntryActivity"
             android:exported="false" />
         <activity

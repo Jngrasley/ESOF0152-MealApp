@@ -24,6 +24,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_CALENDAR_BREAKFAST = "BREAKFAST";
     public static final String COL_CALENDAR_LUNCH = "LUNCH";
     public static final String COL_CALENDAR_DINNER = "DINNER";
+    public static final String SHOPPING_TABLE = "SHOPPING_TABLE";
+    public static final String COL_CART_ITEMS = "CART_ITEMS";
+    public static final String COL_CART_AMOUNTS = "CART_AMOUNTS";
 
     public DBHelper(@Nullable Context context) {
         super(context, "recipe_db", null, 1);
@@ -42,12 +45,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 ")";
         sqLiteDatabase.execSQL(createTable);
 
+        //generate the calendar table
         createTable = "CREATE TABLE " + CALENDAR_TABLE +
                 "(" +
                 COL_CALENDAR_DATE + " TEXT PRIMARY KEY, " +
                 COL_CALENDAR_BREAKFAST + " TEXT, " +
                 COL_CALENDAR_LUNCH + " TEXT, " +
                 COL_CALENDAR_DINNER + " TEXT" +
+                ")";
+        sqLiteDatabase.execSQL(createTable);
+
+        //generate the shopping cart table
+        createTable = "CREATE TABLE " + SHOPPING_TABLE +
+                "(" +
+                COL_CART_ITEMS + " TEXT PRIMARY KEY, " +
+                COL_CART_AMOUNTS + " TEXT" +
                 ")";
         sqLiteDatabase.execSQL(createTable);
     }
@@ -59,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onTruncate(String table_name) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.execSQL("delete from "+ table_name +";");
-        sqLiteDatabase.execSQL("delete from sqlite_sequence where name='" + table_name + "';");
+        //sqLiteDatabase.execSQL("delete from sqlite_sequence where name='" + table_name + "';");
         sqLiteDatabase.close();
     }
 
@@ -285,6 +297,93 @@ public class DBHelper extends SQLiteOpenHelper {
         //result = cs.moveToFirst();
 
         //cs.close();
+        db.close();
+        //return result;
+        return result != -1;
+    }
+
+    public List<CartModel> getCartListView() {
+        //define the output list
+        List<CartModel> output = new ArrayList<>();
+
+        //declare the query
+        String outputQuery = "SELECT * FROM " + SHOPPING_TABLE;
+        //execute the query with a db object
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs = db.rawQuery(outputQuery, null);
+
+        if (cs.moveToFirst()) {
+            // data is valid, iter through the rest
+            //use a do while to ensure you capture the first element!!
+            do {
+                //capture the data elements one at a time
+                String itemName = cs.getString(0);
+                String itemAmount = cs.getString(1);
+
+                CartModel cartModel = new CartModel(itemName, itemAmount);
+                output.add(cartModel);
+            } while(cs.moveToNext());
+        }
+
+        //make sure to close out the resources and return the data
+        cs.close();
+        db.close();
+        return output;
+    }
+
+    public List<CartModel> searchCartListView(String name) {
+        //declare output string
+        List<CartModel> output = new ArrayList<>();
+
+        //declare the query
+        String outputQuery = ("SELECT * FROM " + SHOPPING_TABLE + " WHERE " + COL_CART_ITEMS + " LIKE \'%" + name + "%\';");
+        //execute the query with a db object
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs = db.rawQuery(outputQuery, null);
+
+        if (cs.moveToFirst()) {
+            // data is valid, iter through the rest
+            //use a do while to ensure you capture the first element!!
+            do {
+                //capture the data elements one at a time
+                String itemName = cs.getString(0);
+                String itemAmount = cs.getString(1);
+
+                CartModel cartModel = new CartModel(itemName, itemAmount);
+                output.add(cartModel);
+            } while(cs.moveToNext());
+        }
+
+        //make sure to close out the resources and return the data
+        cs.close();
+        db.close();
+        return output;
+    }
+
+    public boolean addItemToCart(CartModel cartModel) {
+        //declare starter variables to access the database (DB)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        //push variables to new recipe
+        cv.put(COL_CART_ITEMS, toTitleCase(cartModel.getName()));
+        cv.put(COL_CART_AMOUNTS, cartModel.getAmount());
+
+        long insert = db.insert(SHOPPING_TABLE, COL_CART_ITEMS, cv);
+
+        //check for successful insert value
+        return insert != -1;
+    }
+
+    public boolean deleteCartItem(CartModel cartModel) {
+        //find and remove recipe, return true
+        // if no found in db, return false
+        //setup db
+        SQLiteDatabase db = this.getWritableDatabase();
+        //execute
+        int result = db.delete(SHOPPING_TABLE, (COL_CART_ITEMS +" = \'" + cartModel.getName() + "\';"), null);
+
+        //cleanup
         db.close();
         //return result;
         return result != -1;
