@@ -62,6 +62,34 @@ public class DBHelper extends SQLiteOpenHelper {
                 COL_CART_AMOUNTS + " TEXT" +
                 ")";
         sqLiteDatabase.execSQL(createTable);
+
+        //now we can input some default values for the users on the start of the app
+        ContentValues cv = new ContentValues();
+        cv.put(COL_RECIPE_NAME, toTitleCase("Classic Omelette"));
+        cv.put(COL_RECIPE_DESC, ("The basic omelette we all know and love. All you need to do is start by whisking up your eggs with the water, salt, and pepper. Butter up a pan and cook until cooked. Serve with toast."));
+        cv.put(COL_RECIPE_INGRED, ("2 eggs, 2 tbsp water, salt & pepper to taste, extra ingredients per preference"));
+        sqLiteDatabase.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
+        cv.put(COL_RECIPE_NAME, toTitleCase("Pasta Aglio e Olio"));
+        cv.put(COL_RECIPE_DESC, ("A classic Italian dish originating from Naples. This simple meal consists of linguine and garlic cooked in olive oil with lemon juice, parsley, and red pepper flakes."));
+        cv.put(COL_RECIPE_INGRED, ("0.5 head garlic, 0.5 cup parsley, 0.5 cup olive oil, 1 teaspoon red pepper flake, 0.5 pound linguine, 0.5 lemon, salt & pepper to taste"));
+        sqLiteDatabase.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
+        cv.put(COL_RECIPE_NAME, toTitleCase("Mac n Cheese"));
+        cv.put(COL_RECIPE_DESC, ("A quick recipe for an easy, creamy stovetop macaroni and cheese with a toasted breadcrumb topping."));
+        cv.put(COL_RECIPE_INGRED, ("1 cup milk, 1.5 cups water, 0.5 cup panko breadcrumbs, 3.5 tablespoons butter, 8 ounces macaroni, 2 ounces ramano cheese, 4 ounces american cheese, 0.5 teaspoon dijon mustard, 4 ounces cheddar cheese, cayenne pepper to taste"));
+        sqLiteDatabase.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
+        cv.put(COL_RECIPE_NAME, toTitleCase("Chicken Curry"));
+        cv.put(COL_RECIPE_DESC, ("Delicious chicken curry recipe. Tender pieces of chicken and vegetables in a savory curry sauce."));
+        cv.put(COL_RECIPE_INGRED, ("1.5 pounds chicken thighs, 2 carrots, 2 onions, 3 potatoes, 2 cloves garlic, 0.5 apple, 4 cups chicken stock, 1 package japanese curry roux, salt & pepper to taste"));
+        sqLiteDatabase.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
+        cv.put(COL_RECIPE_NAME, toTitleCase("Garden Salad"));
+        cv.put(COL_RECIPE_DESC, ("A fresh, simple salad. Your health is important!"));
+        cv.put(COL_RECIPE_INGRED, ("10 cups lettuce, 1 tomato, 1 carrot, 1 cucumber, 1 cup tofu, 5 tablespoons italian dressing"));
+        sqLiteDatabase.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
+        cv.put(COL_RECIPE_NAME, toTitleCase("Orange Joe"));
+        cv.put(COL_RECIPE_DESC, ("If it tastes bad, that's normal."));
+        cv.put(COL_RECIPE_INGRED, ("1 cup orange juice, 1 cup coffee"));
+        sqLiteDatabase.insert(RECIPE_TABLE, COL_RECIPE_NAME, cv);
+        cv.clear();
     }
 
     //this is likely not needed, but helps with future compatibility.

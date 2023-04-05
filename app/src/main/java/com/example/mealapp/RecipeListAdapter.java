@@ -49,8 +49,8 @@ public class RecipeListAdapter extends BaseAdapter {
         TextView ingr = view.findViewById(R.id.item_ingr);
         //reassign the data
         name.setText("\u2022\t" + recipeList.get(i).getName());
-        desc.setText("Description - " + recipeList.get(i).getDescription());
-        ingr.setText("Ingredients - " + RecipeModel.ingredientsToCSV(recipeList.get(i).getIngredients()));
+        desc.setText(" - Description: " + recipeList.get(i).getDescription());
+        ingr.setText(" - Ingredients: " + RecipeModel.ingredientsToCSV(recipeList.get(i).getIngredients()));
 
         //finally return the new view attr
         return view;

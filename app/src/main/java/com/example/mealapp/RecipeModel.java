@@ -83,6 +83,6 @@ public class RecipeModel {
 
     //take a csv string from the DB and put to a list
     public static List<String> CSVToIngredients(String CSV) {
-        return Arrays.asList(CSV.replaceAll("\\s", "").split(",", -1));
+        return Arrays.asList(CSV.split(",", -1));
     }
 }

@@ -69,6 +69,7 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateRecipeListView();
+                searchField.setText("");
             }
         });
 
@@ -82,7 +83,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                 if (searchItem.isEmpty() || searchItem.equals(null)) {
                     //don't do anything, just update to old adapter
-                    refreshRecipeButton.callOnClick();
+                    updateRecipeListView();
                 } else {
                     //if words in box, update the list
                     DBHelper dbHelper = new DBHelper(RecipesActivity.this);
